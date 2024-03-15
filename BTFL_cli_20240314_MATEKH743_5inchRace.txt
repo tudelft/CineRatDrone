@@ -2,7 +2,7 @@ defaults nosave
 
 
 # version
-# Indiflight / STM32H743 (SH74) 5.0.0 Feb 27 2024 / 18:33:14 (norevision) MSP API: 1.45
+# Indiflight / STM32H743 (SH74) 5.0.0 Mar 14 2024 / 16:07:36 (9a126cbb7) MSP API: 1.45
 
 # config: YES
 
@@ -14,7 +14,7 @@ defaults nosave
 
 board_name MATEKH743
 manufacturer_id MTKS
-mcu_id 0023003d3330511736353839
+mcu_id 003c001e3031511939313337
 signature 
 
 # feature
@@ -49,11 +49,13 @@ beeper -CAM_CONNECTION_CLOSE
 beeper -RC_SMOOTHING_INIT_FAIL
 
 # aux
-%aux 0 0 4 900 1300 0 0
+% aux 0 0 4 900 1300 0 0
 aux 1 1 5 1275 1675 0 0
 aux 2 27 0 1300 2100 0 0
 aux 3 55 5 900 1300 0 0
-aux 4 36 2 1700 2100 0 0
+% aux 4 57 1 900 1700 0 0
+% aux 5 58 1 900 1300 0 0
+aux 6 36 2 1700 2100 0 0
 
 # master
 set gyro_lpf1_static_hz = 100
@@ -63,6 +65,7 @@ set dyn_notch_q = 500
 set gyro_lpf1_dyn_min_hz = 0
 set gyro_lpf1_dyn_max_hz = 250
 set acc_calibration = 0,0,-5,1
+set acc_offset = 0,10,-15
 set blackbox_disable_pids = ON
 set blackbox_disable_setpoint = ON
 set blackbox_disable_bat = ON
@@ -73,19 +76,10 @@ set dshot_bidir = ON
 set motor_pwm_protocol = DSHOT600
 set motor_poles = 14
 set failsafe_delay = 5
+set failsafe_switch_mode = KILL
 set ibata_scale = 280
 set pid_process_denom = 4
 set simplified_gyro_filter_multiplier = 40
-set catapult_target_altitude = 350
-set catapult_rotation_roll = 100
-set catapult_rotation_pitch = -700
-set catapult_upwards_accel = 25
-set learner_mode = 6
-set learner_zeta_attitude = 70
-set learner_zeta_velocity = 70
-set learner_zeta_position = 90
-set learner_apply_indi_profile = 1
-set learner_apply_position_profile = 1
 set osd_rssi_pos = 2080
 set osd_ah_sbar_pos = 2286
 set osd_ah_pos = 2158
@@ -97,13 +91,13 @@ set osd_canvas_width = 30
 set osd_canvas_height = 13
 set rpm_filter_min_hz = 50
 
-set catapult_target_altitude = 300
+set catapult_target_altitude = 350
 set catapult_target_x_ned = 0
 set catapult_target_y_ned = 0
 set catapult_rotation_roll = 400
 set catapult_rotation_pitch = 400
 set catapult_rotation_yaw = 400
-set catapult_rotation_randomize = 1
+set catapult_rotation_randomize = 0
 set catapult_rotation_time = 150
 set catapult_upwards_accel = 25
 
@@ -164,7 +158,7 @@ indiprofile 0
 # indiprofile 0
 # --- attitude control config and limits ---
 # Attitude: (deg/s/s) / (deg) * 10    Rate: (deg/s/s) / (deg/s)*10
-set indi_attitude_gains = 3000, 3000, 3000
+set indi_attitude_gains = 2100, 2100, 2100
 set indi_rate_gains     =  230,  230,  230
 
 # deg/s
@@ -195,7 +189,7 @@ set indi_wls_act_preferred_state = 0,0,0,0
 
 # --- actuators: fields can have up to 8 elements ---
 # rpm
-set indi_act_time_constant_ms = 20, 20, 20, 20
+set indi_act_time_constant_ms = 30, 30, 30, 30
 set indi_act_max_rpm = 30000, 30000, 30000, 30000
 set indi_act_hover_rpm = 12000, 12000, 12000, 12000
 
@@ -203,7 +197,7 @@ set indi_act_hover_rpm = 12000, 12000, 12000, 12000
 set indi_act_nonlinearity = 50, 50, 50, 50
 
 # in %. upper bounded by motor_output_limit
-set indi_act_limit = 40, 40, 40, 40
+set indi_act_limit = 60, 60, 60, 60
 
 # fx, fy, fz is N/kg / 1 * 100.  Roll, pitch is Nm / (kgm^2) / 1 * 10.  Yaw is Nm / (kgm^2) / 1 * 10
 set indi_act_g1_fx = 0,0,0,0
@@ -238,7 +232,7 @@ set indi_manual_max_upwards_accel = 20
 # set indi_act_time_constant_ms = 22,21,21,21,25,25,25,25
 # set indi_act_max_rpm = 32757,28254,34458,35347,40000,40000,40000,40000
 # set indi_act_hover_rpm = 16378,14127,17229,17673,20000,20000,20000,20000
-set indi_act_limit = 30,30,30,30,100,100,100,100
+set indi_act_limit = 40,40,40,40,100,100,100,100
 # set indi_act_g1_fx = 123,-74,126,-163,0,0,0,0
 # set indi_act_g1_fy = -49,11,-87,-77,0,0,0,0
 # set indi_act_g1_fz = -727,-533,-1091,-1067,0,0,0,0
@@ -268,7 +262,7 @@ set position_vertical_d = 40
 set position_max_upwards_speed = 250
 set position_max_downwards_speed = 250
 set position_max_upwards_accel = 1500
-set position_max_downwards_accel = 900
+set position_max_downwards_accel = 800
 set position_yaw_p = 50
 
 positionprofile 1
